@@ -7,7 +7,7 @@ input_label.subheader("Input")
 button_label.subheader("")
 output_label.subheader("Output")
 
-input_text = input_label.text_input("")
+input_text = input_label.text_input("Input Number")
 output_text = output_label.text("")
 
 b_k2m = button_label.button("km/L to mile/gallon")
