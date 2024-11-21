@@ -2,6 +2,8 @@
 import urllib.request, json, folium
 import geopandas as gpd
 from folium.features import CustomIcon
+import streamlit as st
+from streamlit_folium import st_folium
 
 locations = {
     "dohwa": ["Geo_Split/dohwa.geojson", (37.469248, 126.660751)],
@@ -172,4 +174,5 @@ g_sunge = folium.GeoJson(sunge, name="숭의", style_function=style("sunge")).ad
 folium.Marker(location=locations["sunge"][1], popup=popup_sunge, icon=get_icon("sunge")).add_to(mapa)
 g_yonghyun = folium.GeoJson(yonghyun, name="용현", style_function=style("yonghyun")).add_to(mapa)
 folium.Marker(location=locations["yonghyun"][1], popup=popup_yonghyun, icon=get_icon("yonghyun")).add_to(mapa)
-mapa.show_in_browser()
+
+st_folium(mapa)
