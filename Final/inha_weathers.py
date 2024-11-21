@@ -110,50 +110,50 @@ popup_dohwa = folium.Popup(
 popup_ganseok = folium.Popup(
     f'''
     <h1 style="color:{color_ganseok}"><strong>간석동</strong> 날씨</h1><h1>{emoji_ganseok}</h1>
-    <strong>온도</strong> : {weather_info["dohwa"]["main"]["temp"]} °C<br>
-    <strong>체감온도</strong> : {weather_info["dohwa"]["main"]["feels_like"]} °C
+    <strong>온도</strong> : {weather_info["ganseok"]["main"]["temp"]} °C<br>
+    <strong>체감온도</strong> : {weather_info["ganseok"]["main"]["feels_like"]} °C
 ''', max_width=400)
 
 popup_guwol = folium.Popup(
     f'''
     <h1 style="color:{color_guwol}"><strong>구월동</strong> 날씨</h1><h1>{emoji_guwol}</h1>
-    <strong>온도</strong> : {weather_info["dohwa"]["main"]["temp"]} °C<br>
-    <strong>체감온도</strong> : {weather_info["dohwa"]["main"]["feels_like"]} °C
+    <strong>온도</strong> : {weather_info["guwol"]["main"]["temp"]} °C<br>
+    <strong>체감온도</strong> : {weather_info["guwol"]["main"]["feels_like"]} °C
 ''', max_width=400)
 
 popup_gwankyo = folium.Popup(
     f'''
     <h1 style="color:{color_gwankyo}"><strong>관교동</strong> 날씨</h1><h1>{emoji_gwankyo}</h1>
-    <strong>온도</strong> : {weather_info["dohwa"]["main"]["temp"]} °C<br>
-    <strong>체감온도</strong> : {weather_info["dohwa"]["main"]["feels_like"]} °C
+    <strong>온도</strong> : {weather_info["gwankyo"]["main"]["temp"]} °C<br>
+    <strong>체감온도</strong> : {weather_info["gwankyo"]["main"]["feels_like"]} °C
 ''', max_width=400)
 
 popup_hakik = folium.Popup(
     f'''
     <h1 style="color:{color_hakik}"><strong>학익동</strong> 날씨</h1><h1>{emoji_hakik}</h1>
-    <strong>온도</strong> : {weather_info["dohwa"]["main"]["temp"]} °C<br>
-    <strong>체감온도</strong> : {weather_info["dohwa"]["main"]["feels_like"]} °C
+    <strong>온도</strong> : {weather_info["hakik"]["main"]["temp"]} °C<br>
+    <strong>체감온도</strong> : {weather_info["hakik"]["main"]["feels_like"]} °C
 ''', max_width=400)
 
 popup_juan = folium.Popup(
     f'''
     <h1 style="color:{color_juan}"><strong>주안동</strong> 날씨</h1><h1>{emoji_juan}</h1>
-    <strong>온도</strong> : {weather_info["dohwa"]["main"]["temp"]} °C<br>
-    <strong>체감온도</strong> : {weather_info["dohwa"]["main"]["feels_like"]} °C
+    <strong>온도</strong> : {weather_info["juan"]["main"]["temp"]} °C<br>
+    <strong>체감온도</strong> : {weather_info["juan"]["main"]["feels_like"]} °C
 ''', max_width=400)
 
 popup_sunge = folium.Popup(
     f'''
     <h1 style="color:{color_sunge}"><strong>숭의동</strong> 날씨</h1><h1>{emoji_sunge}</h1>
-    <strong>온도</strong> : {weather_info["dohwa"]["main"]["temp"]} °C<br>
-    <strong>체감온도</strong> : {weather_info["dohwa"]["main"]["feels_like"]} °C
+    <strong>온도</strong> : {weather_info["sunge"]["main"]["temp"]} °C<br>
+    <strong>체감온도</strong> : {weather_info["sunge"]["main"]["feels_like"]} °C
 ''', max_width=400)
 
 popup_yonghyun = folium.Popup(
     f'''
     <h1 style="color:{color_yonghyun}"><strong>용현동</strong> 날씨</h1><h1>{emoji_yonghyun}</h1>
-    <strong>온도</strong> : {weather_info["dohwa"]["main"]["temp"]} °C<br>
-    <strong>체감온도</strong> : {weather_info["dohwa"]["main"]["feels_like"]} °C
+    <strong>온도</strong> : {weather_info["yonghyun"]["main"]["temp"]} °C<br>
+    <strong>체감온도</strong> : {weather_info["yonghyun"]["main"]["feels_like"]} °C
 ''', max_width=400)
 
 mapa = folium.Map(location=(37.45, 126.68), zoom_start=13, tiles='Cartodb Positron')
