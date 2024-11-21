@@ -2,7 +2,6 @@
 import urllib.request, json, folium
 import geopandas as gpd
 from folium.features import CustomIcon
-import streamlit as st
 from streamlit_folium import st_folium
 
 locations = {
