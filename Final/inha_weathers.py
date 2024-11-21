@@ -3,6 +3,9 @@ import urllib.request, json, folium
 import geopandas as gpd
 from folium.features import CustomIcon
 from streamlit_folium import st_folium
+import streamlit as st
+
+st.subheader("날씨 아이콘을 눌러 날씨 정보를 확인하세요!")
 
 locations = {
     "dohwa": ["Final/Geo_Split/dohwa.geojson", (37.469248, 126.660751)],
