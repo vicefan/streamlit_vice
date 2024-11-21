@@ -5,7 +5,7 @@ from folium.features import CustomIcon
 from streamlit_folium import st_folium
 import streamlit as st
 
-st.write("""<span style = " font-size:1.5em;">
+st.write("""<div style = " font-size:1.5em;">
 🫠 인하대학교 주변 날씨 🫠
 </span>""")
 st.write("🌡️ 온도는 ℃로 표시됩니다.")
