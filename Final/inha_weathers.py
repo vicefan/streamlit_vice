@@ -5,14 +5,14 @@ from folium.features import CustomIcon
 from streamlit_folium import st_folium
 
 locations = {
-    "dohwa": ["Geo_Split/dohwa.geojson", (37.469248, 126.660751)],
-    "ganseok": ["Geo_Split/ganseok.geojson", (37.461129, 126.703504)],
-    "guwol": ["Geo_Split/guwol.geojson", (37.447230, 126.706705)],
-    "gwankyo": ["Geo_Split/gwankyo.geojson", (37.440732, 126.686613)],
-    "hakik": ["Geo_Split/hakik.geojson", (37.434989, 126.649610)],
-    "juan": ["Geo_Split/juan.geojson", (37.457082, 126.677223)],
-    "sunge": ["Geo_Split/sunge.geojson", (37.461215, 126.645630)],
-    "yonghyun": ["Geo_Split/yonghyun.geojson", (37.451925, 126.647227)],
+    "dohwa": ["Final/Geo_Split/dohwa.geojson", (37.469248, 126.660751)],
+    "ganseok": ["Final/Geo_Split/ganseok.geojson", (37.461129, 126.703504)],
+    "guwol": ["Final/Geo_Split/guwol.geojson", (37.447230, 126.706705)],
+    "gwankyo": ["Final/Geo_Split/gwankyo.geojson", (37.440732, 126.686613)],
+    "hakik": ["Final/Geo_Split/hakik.geojson", (37.434989, 126.649610)],
+    "juan": ["Final/Geo_Split/juan.geojson", (37.457082, 126.677223)],
+    "sunge": ["Final/Geo_Split/sunge.geojson", (37.461215, 126.645630)],
+    "yonghyun": ["Final/Geo_Split/yonghyun.geojson", (37.451925, 126.647227)],
     }
 
 weathers = {
