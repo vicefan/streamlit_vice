@@ -12,82 +12,83 @@ st.write("🌡️온도는 ℃로 표시됩니다.")
 st.write("👉🏼이모지를 눌러 날씨 정보를 확인하세요.")
 c_box = st.checkbox("✅날씨 정보 보기")
 
-locations = {
-    "dohwa": ["Final/Geo_Split/dohwa.geojson", (37.469248, 126.660751)],
-    "ganseok": ["Final/Geo_Split/ganseok.geojson", (37.461129, 126.703504)],
-    "guwol": ["Final/Geo_Split/guwol.geojson", (37.447230, 126.706705)],
-    "gwankyo": ["Final/Geo_Split/gwankyo.geojson", (37.440732, 126.686613)],
-    "hakik": ["Final/Geo_Split/hakik.geojson", (37.434989, 126.649610)],
-    "juan": ["Final/Geo_Split/juan.geojson", (37.457082, 126.677223)],
-    "sunge": ["Final/Geo_Split/sunge.geojson", (37.461215, 126.645630)],
-    "yonghyun": ["Final/Geo_Split/yonghyun.geojson", (37.451925, 126.647227)],
-    }
-
-weathers = {
-    "2": ["뇌우", "#00008b", "⛈"],
-    "3": ["이슬비", "#add8e6", "☔"],
-    "5": ["비", "#0000ff", "☔"],
-    "6": ["눈", "#f5f5f5", "☃"],
-    "701": ["안개", "#add8e6", "🌫"], "711": ["짙은 안개", "#bebebe", "🌫"], "721": ["안개", "#bebebe", "🌫"],
-    "731": ["황사", "#e9d66b", "😷"], "741": ["안개", "#bebebe", "🌫"], "751": ["황사", "#e9d66b", "😷"],
-    "761": ["미세먼지", "#e9d66b", "😷"], "762": ["화산재", "#838b8b", "🌋"],
-    "771": ["스콜", "#0000ff", "⛆"], "781": ["토네이도", "#00008b", "🌪"],
-    "800": ["맑음", "#318ce7", "☀"], "801": ["구름", "#89cff0", "☁"], "802": ["구름", "#89cff0", "☁"],
-    "803": ["흐림", "#7f7f7f", "☁"], "804": ["흐림", "#7f7f7f", "☁"],
-}
-
-
-def get_weather(lat, lon):
-    f = urllib.request.urlopen(f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&APPID=c3114ccaa3eada02fe5d90aefc5f249c")
-    s = json.loads(f.read())
-    return s
-
-
-def style(location):
-    weather_id = str(weather_info[location]['weather'][0]['id'])
-    if weather_id[0] == "7" or weather_id[0] == "8":
-        loc_style = {
-            'fillColor': weathers[weather_id][1],
-            'fillOpacity': 0.7,
-            'color': 'black',
-            'weight': 1,
-            "dashArray": "5, 5"
-        }
-    else:
-        loc_style = {
-            'fillColor': weathers[weather_id[0]][1],
-            'fillOpacity': 0.7,
-            'color': 'black',
-            'weight': 1,
-            "dashArray": "5, 5"
-        }
-
-    return lambda x: loc_style
-
-def get_icon(loc):
-    anchor = {
-        "dohwa": (10, 50),
-        "ganseok": (10, 50),
-        "guwol": (10, 50),
-        "sunge": (10, 50),
-        "yonghyun": (30, 45),
-        "juan": (10, 20),
-        "gwankyo": (-30, 30),
-        "hakik": (0, 80),
-    }
-
-    icon = CustomIcon(
-        icon_image=f"https://openweathermap.org/img/wn/{weather_info[loc]['weather'][0]['icon']}@2x.png",
-        icon_size=(70, 70) if loc != "gwankyo" else (40, 40),
-        icon_anchor=anchor[loc],
-    )
-
-    return icon
-
-def gpd_naming(x):
-    return gpd.read_file(locations[x][0])
-
 if c_box:
+    locations = {
+        "dohwa": ["Final/Geo_Split/dohwa.geojson", (37.469248, 126.660751)],
+        "ganseok": ["Final/Geo_Split/ganseok.geojson", (37.461129, 126.703504)],
+        "guwol": ["Final/Geo_Split/guwol.geojson", (37.447230, 126.706705)],
+        "gwankyo": ["Final/Geo_Split/gwankyo.geojson", (37.440732, 126.686613)],
+        "hakik": ["Final/Geo_Split/hakik.geojson", (37.434989, 126.649610)],
+        "juan": ["Final/Geo_Split/juan.geojson", (37.457082, 126.677223)],
+        "sunge": ["Final/Geo_Split/sunge.geojson", (37.461215, 126.645630)],
+        "yonghyun": ["Final/Geo_Split/yonghyun.geojson", (37.451925, 126.647227)],
+        }
+
+    weathers = {
+        "2": ["뇌우", "#00008b", "⛈"],
+        "3": ["이슬비", "#add8e6", "☔"],
+        "5": ["비", "#0000ff", "☔"],
+        "6": ["눈", "#f5f5f5", "☃"],
+        "701": ["안개", "#add8e6", "🌫"], "711": ["짙은 안개", "#bebebe", "🌫"], "721": ["안개", "#bebebe", "🌫"],
+        "731": ["황사", "#e9d66b", "😷"], "741": ["안개", "#bebebe", "🌫"], "751": ["황사", "#e9d66b", "😷"],
+        "761": ["미세먼지", "#e9d66b", "😷"], "762": ["화산재", "#838b8b", "🌋"],
+        "771": ["스콜", "#0000ff", "⛆"], "781": ["토네이도", "#00008b", "🌪"],
+        "800": ["맑음", "#318ce7", "☀"], "801": ["구름", "#89cff0", "☁"], "802": ["구름", "#89cff0", "☁"],
+        "803": ["흐림", "#7f7f7f", "☁"], "804": ["흐림", "#7f7f7f", "☁"],
+    }
+
+
+    def get_weather(lat, lon):
+        f = urllib.request.urlopen(f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&APPID=c3114ccaa3eada02fe5d90aefc5f249c")
+        s = json.loads(f.read())
+        return s
+
+
+    def style(location):
+        weather_id = str(weather_info[location]['weather'][0]['id'])
+        if weather_id[0] == "7" or weather_id[0] == "8":
+            loc_style = {
+                'fillColor': weathers[weather_id][1],
+                'fillOpacity': 0.7,
+                'color': 'black',
+                'weight': 1,
+                "dashArray": "5, 5"
+            }
+        else:
+            loc_style = {
+                'fillColor': weathers[weather_id[0]][1],
+                'fillOpacity': 0.7,
+                'color': 'black',
+                'weight': 1,
+                "dashArray": "5, 5"
+            }
+
+        return lambda x: loc_style
+
+    def get_icon(loc):
+        anchor = {
+            "dohwa": (10, 50),
+            "ganseok": (10, 50),
+            "guwol": (10, 50),
+            "sunge": (10, 50),
+            "yonghyun": (30, 45),
+            "juan": (10, 20),
+            "gwankyo": (-30, 30),
+            "hakik": (0, 80),
+        }
+
+        icon = CustomIcon(
+            icon_image=f"https://openweathermap.org/img/wn/{weather_info[loc]['weather'][0]['icon']}@2x.png",
+            icon_size=(70, 70) if loc != "gwankyo" else (40, 40),
+            icon_anchor=anchor[loc],
+        )
+
+        return icon
+
+    def gpd_naming(x):
+        return gpd.read_file(locations[x][0])
+
+
     dohwa = gpd_naming("dohwa")
     ganseok = gpd_naming("ganseok")
     guwol = gpd_naming("guwol")
