@@ -180,4 +180,4 @@ folium.Marker(location=locations["sunge"][1], popup=popup_sunge, icon=get_icon("
 g_yonghyun = folium.GeoJson(yonghyun, name="용현", style_function=style("yonghyun")).add_to(mapa)
 folium.Marker(location=locations["yonghyun"][1], popup=popup_yonghyun, icon=get_icon("yonghyun")).add_to(mapa)
 
-st_folium(mapa, width=700, height=600, center=(37.45, 126.68), zoom=13)
+st_folium(mapa, width=1400, height=600, center=(37.45, 126.68), zoom=13)
