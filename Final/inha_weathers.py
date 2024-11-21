@@ -5,6 +5,7 @@ from folium.features import CustomIcon
 from streamlit_folium import st_folium
 import streamlit as st
 
+st.set_page_config(page_title="INHA_WEATHERS", page_icon="🫠", layout="wide")
 st.subheader("🫠 인하대학교 주변 날씨 🫠")
 st.write("🌡️ 온도는 ℃로 표시됩니다.")
 st.write("☀️ 이모지를 눌러 날씨 정보를 확인하세요.")
