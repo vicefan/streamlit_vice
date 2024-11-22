@@ -65,7 +65,7 @@ def get_weather(lat, lon):
     return s
 
 
-with open('Geo_All/Kor.geojson', 'r', encoding='utf-8') as file:
+with open('Final/Geo_All/Kor.geojson', 'r', encoding='utf-8') as file:
     data = json.load(file)
 
 loc_infos = {}
