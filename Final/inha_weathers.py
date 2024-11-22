@@ -66,11 +66,12 @@ with open('Final/Geo_All/TL_SCCO_SIG.json', 'r', encoding='utf-8') as file:
     data = json.load(file)
 
 geo_kr_names = [i['properties']['SIG_KOR_NM'] for i in data['features']]
+geo_kr_names.sort()
 
 st.set_page_config(page_title="Test_Weather", page_icon="🫠",
                    menu_items={"About": "www.instagram.com/rollingloud/viceversartist"})
 st.header("🫠전국 날씨 탐색기🫠")
-select_loc = st.selectbox(label=":pushpin:지역을 선택하세요!",options=geo_kr_names, index=None, placeholder="Choose a Location!")
+select_loc = st.selectbox(label=":pushpin:을 눌러 날씨를 확인하세요!",options=geo_kr_names, index=None, placeholder="Choose a Location!")
 
 if select_loc is not None:
     coo_cen = calc_center(select_loc)
