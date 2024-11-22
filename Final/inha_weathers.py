@@ -78,7 +78,7 @@ for _ in data['features']:
         loc_infos[_['properties']['sidonm']][_['properties']['sggnm']] = []
     loc_infos[_['properties']['sidonm']][_['properties']['sggnm']].append(_['properties']['adm_nm'].split(" ")[-1])
 
-st.set_page_config(page_title="Test_Weather", page_icon="🫠",
+st.set_page_config(page_title="viceversartist", page_icon="🫠",
                    menu_items={"About": "www.instagram.com/rollingloud/viceversartist"})
 
 st.markdown(
