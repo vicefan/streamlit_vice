@@ -1,7 +1,6 @@
 import json, folium, urllib.request
 from streamlit_folium import st_folium
 import streamlit as st
-from folium.features import CustomIcon
 
 weathers = {
         "2": ["뇌우", "#00008b", "⛈"],
