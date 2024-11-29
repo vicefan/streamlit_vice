@@ -1,27 +1,38 @@
 import streamlit as st
-import pandas as pd
+from openai import OpenAI
+from PyPDF2 import PdfReader
 
-data = st.file_uploader("***파일 업로드***", type={"csv", "txt"})
+# OpenAI API key 설정
+apikey = "sk-proj-AgGZwxcQeXblwWcgGltsT3BlbkFJgL1xpNjl7zoVeXMXBXIK"
+client = OpenAI(api_key=apikey)
 
-if data is not None:
-    # Read Data
-    df = pd.read_csv(data)
-    df = df[::-1]
+st.set_page_config(layout="wide")
 
-    # Layout Setting
-    x_col, y_col, b_enter = st.columns(3)
-    error_label = st.text("")
+# Streamlit 애플리케이션
+st.title("ChatGPT PDF Application")
 
-    # Setting axis name
-    x_input = x_col.selectbox("***X축***", df.columns, key="x_col")
-    y_input = y_col.selectbox("***Y축***", df.columns, key="y_col")
 
-    # Button
-    b_enter.text("")
-    b_fin = b_enter.button("📝")
-    st.write(df)
+# PDF 파일 열기
+file = st.file_uploader("Upload PDF", type="pdf")
+if file:
+    reader = PdfReader(file)
+    text = ''
+    for page in reader.pages:
+        text += page.extract_text()
 
-    # Draw Graph with user input
-    if b_fin:
-        error_label.subheader("""✅ 생성 완료!""")
-        st.line_chart(df, x=x_input, y=y_input)
+def get_chat_response(message, text):
+    chat_completion = client.chat.completions.create(
+        model="chatgpt-4o-latest",
+        messages=[
+            {"role": "system", "content": f"""{text}\n
+            위 내용을 토대로 사용자의 질문인, //{message}//에 대한 답변을 생성합니다. 답변은 markdown을 사용하여 표현된다는 것을 인지하여 작성합니다. 반드시 한국말로 설명합니다."""},
+            {"role": "user", "content": message}
+        ]
+    )
+    return chat_completion.choices[0].message.content
+
+
+message = st.text_area("Enter your message:")
+if st.button("Get Response"):
+    response = get_chat_response(message, text)
+    st.markdown(response)
