@@ -3,7 +3,7 @@ from openai import OpenAI
 from PyPDF2 import PdfReader
 
 # OpenAI API key 설정
-api_key = st.secrets["apikey"]
+api_key = st.secrets["api_key"]
 client = OpenAI(api_key=api_key)
 
 st.set_page_config(layout="wide")
