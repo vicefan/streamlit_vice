@@ -3,8 +3,9 @@ from openai import OpenAI
 from PyPDF2 import PdfReader
 
 # OpenAI API key 설정
+api_key = st.secrets["apikey"]
 client = OpenAI(api_key=apikey)
-#
+
 st.set_page_config(layout="wide")
 
 # Streamlit 애플리케이션
