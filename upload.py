@@ -11,17 +11,15 @@ st.set_page_config(layout="wide")
 # Streamlit 애플리케이션
 st.title("ChatGPT PDF Application")
 
+text = ''
 
 # PDF 파일 열기
 file = st.file_uploader("Upload PDF", type="pdf")
 if file:
-    try:
-        reader = PdfReader(file)
-        text = ''
-        for page in reader.pages:
-            text += page.extract_text()
-    except:
-        text = ''
+    reader = PdfReader(file)
+    text = ''
+    for page in reader.pages:
+        text += page.extract_text()
 
 
 def get_chat_response(message, text=''):
