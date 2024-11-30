@@ -24,7 +24,7 @@ if file:
         text = ''
 
 
-def get_chat_response(message, text):
+def get_chat_response(message, text=''):
     chat_completion = client.chat.completions.create(
         model="chatgpt-4o-latest",
         messages=[
