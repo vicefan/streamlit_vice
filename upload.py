@@ -15,10 +15,14 @@ st.title("ChatGPT PDF Application")
 # PDF 파일 열기
 file = st.file_uploader("Upload PDF", type="pdf")
 if file:
-    reader = PdfReader(file)
-    text = ''
-    for page in reader.pages:
-        text += page.extract_text()
+    try:
+        reader = PdfReader(file)
+        text = ''
+        for page in reader.pages:
+            text += page.extract_text()
+    except:
+        text = ''
+
 
 def get_chat_response(message, text):
     chat_completion = client.chat.completions.create(
