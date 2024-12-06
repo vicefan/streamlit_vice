@@ -1,5 +1,3 @@
-import time
-
 import streamlit as st
 from openai import OpenAI
 from PyPDF2 import PdfReader
@@ -40,8 +38,6 @@ def get_chat_response(message, text):
 
 
 message = st.text_area("Enter your message:")
-while True:
-    if st.button("Send"):
-        response = get_chat_response(message, text)
-        st.markdown(response)
-    time.sleep(2)
+if st.button("Get Response"):
+    response = get_chat_response(message, text)
+    st.markdown(response)
