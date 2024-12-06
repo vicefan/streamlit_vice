@@ -20,14 +20,16 @@ if file:
     text = ''
     for page in reader.pages:
         text += page.extract_text()
+else:
+    text = "PDF가 입력되지 않았습니다."
 
 
 def get_chat_response(message, text=''):
     chat_completion = client.chat.completions.create(
         model="chatgpt-4o-latest",
         messages=[
-            {"role": "system", "content": f"""{text}\n
-            위 내용을 토대로 사용자의 질문인, //{message}//에 대한 답변을 생성합니다. 답변은 markdown을 사용하여 표현된다는 것을 인지하여 작성합니다. 반드시 한국말로 설명합니다."""},
+            {"role": "system", "content": f"""사용자의 PDF (PDF가 없으면 'PDF가 입력되지 않았습니다.') : {text}\n
+            사용자의 질문(답변도 한국어로 작성) : {message}"""},
             {"role": "user", "content": message}
         ]
     )
