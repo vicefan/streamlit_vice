@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="vicefan_codespace" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="vicefan" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="vice_fan" project-jdk-type="Python SDK" />
 </project>

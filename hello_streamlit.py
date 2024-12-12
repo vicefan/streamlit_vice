@@ -1,26 +1,17 @@
-import streamlit as st
+import json
+
+with open('Final/Geo_All/Kor.geojson', 'r', encoding='utf-8') as file:
+    data = json.load(file)
 
 
-input_label, button_label, output_label = st.columns(3)
+loc_infos = {}
 
-input_label.subheader("Input")
-button_label.subheader("")
-output_label.subheader("Output")
+for _ in data['features']:
+    if _['properties']['sidonm'] not in loc_infos.keys():
+        loc_infos[_['properties']['sidonm']] = dict()
 
-input_text = input_label.text_input("Input Number")
-output_text = output_label.text("")
+    if _['properties']['sggnm'] not in loc_infos[_['properties']['sidonm']].keys():
+        loc_infos[_['properties']['sidonm']][_['properties']['sggnm']] = []
+    loc_infos[_['properties']['sidonm']][_['properties']['sggnm']].append(_['properties']['adm_nm'].split(" ")[-1])
 
-b_k2m = button_label.button("km/L to mile/gallon")
-b_m2k = button_label.button("mile/gallon to km/L")
-
-if b_k2m:
-    output_label.text(str(float(input_text) * 2.35214583))
-
-if b_m2k:
-    output_label.text(str(float(input_text) / 2.35214583))
-
-# // 참조 //
-# https://docs.streamlit.io/develop/api-reference/widgets/st.text_input
-# https://docs.streamlit.io/develop/api-reference/layout/st.columns
-
-# streamlit 링크 : https://appvice-s2uaxjv6y3jrdpwscswunf.streamlit.app/
+print(loc_infos)

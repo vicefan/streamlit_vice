@@ -59,7 +59,7 @@ def style(location):
 
 
 def get_weather(lat, lon):
-    f = urllib.request.urlopen(f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&APPID=c3114ccaa3eada02fe5d90aefc5f249c")
+    f = urllib.request.urlopen(f"http://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&units=metric&APPID={api_key}")
     s = json.loads(f.read())
     return s
 
@@ -77,6 +77,8 @@ for _ in data['features']:
         loc_infos[_['properties']['sidonm']][_['properties']['sggnm']] = []
     loc_infos[_['properties']['sidonm']][_['properties']['sggnm']].append(_['properties']['adm_nm'].split(" ")[-1])
 
+print(loc_infos)
+
 st.set_page_config(page_title="viceversartist", page_icon="🫠",
                    menu_items={"About": "www.instagram.com/rollingloud/viceversartist"})
 
@@ -92,8 +94,6 @@ st.markdown(
 )
 
 st.markdown('<h1 class="title">🫠전국 날씨 탐색기🫠</h1>', unsafe_allow_html=True)
-
-
 cols = st.columns(3)
 select_loc_si = cols[0].selectbox(label="시/도", options=list(loc_infos.keys()), index=None, key=None)
 if select_loc_si is not None:
@@ -105,18 +105,22 @@ if select_loc_si is not None:
             coo_cen = calc_center(result_loc)
             weather_info = get_weather(coo_cen[0], coo_cen[1])
             weathers_id = str(get_weather(coo_cen[0], coo_cen[1])['weather'][0]['id'])
+            st.write(weather_info)
 
             mapa = folium.Map(location=coo_cen, zoom_start=14, tiles='cartodbpositron')
             loc = folium.GeoJson(coordinates, style_function=style(coo_cen))
             loc.add_to(mapa)
-
+            from streamlit_folium import st_folium
             st_folium(mapa, width=800, height=450)
 
             st.markdown(f"""
     <div style="border:2px solid {color}; padding: 10px; border-radius: 10px; background-color: #ffffff;">
         <h2 style="color: {color};">📍{result_loc} 날씨📍</h2>
-        <p style="font-size: 18px; color: #000000;">😂 <strong>날씨:</strong> {weathers[weathers_id][0]}</p>
-        <p style="font-size: 18px; color: #000000;">🌡️ <strong>기온:</strong> {weather_info['main']['temp']}℃</p>
-        <p style="font-size: 18px; color: #000000;">🤒️ <strong>체감기온:</strong> {weather_info['main']['feels_like']}℃</p>
+        <p style="font-size: 18px; color: #000000;">😂 <strong>날씨:</strong> 
+{weathers[weathers_id][0]}</p>
+        <p style="font-size: 18px; color: #000000;">🌡️ <strong>기온:</strong> 
+{weather_info['main']['temp']}℃</p>
+        <p style="font-size: 18px; color: #000000;">🤒️ <strong>체감기온:</strong> 
+{weather_info['main']['feels_like']}℃</p>
     </div>
 """, unsafe_allow_html=True)
