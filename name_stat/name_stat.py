@@ -51,7 +51,7 @@ def get_screenshot(app_url):
 
     pattern = r'전국에<br><strong>[\d,]+</strong>명'
     match = re.search(pattern, driver.page_source)
-    st.markdown(match)
+    st.markdown(match.string)
 
     return count.text
 
