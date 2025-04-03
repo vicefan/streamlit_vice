@@ -67,10 +67,8 @@ with st.form("my_form"):
     encoded_str = base64.b64encode(raw_str.encode()).decode().replace("+", "-").replace("/", "_")
     app_url = f"https://www.credit.co.kr/ib20/mnu/BZWMNLGNM20?param={encoded_str}&uaCheck=Y"
     submitted = st.form_submit_button("Submit")
-    st.text(f"echo {app_url} {raw_str}")
 
 if submitted:
-    os.system(f"echo {app_url} {raw_str}")
     if app_url:
         count = get_screenshot(app_url)
         st.subheader(count)
