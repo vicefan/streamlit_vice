@@ -32,6 +32,7 @@ def get_driver():
 def get_screenshot(app_url):
     driver = get_driver()
     driver.get(app_url)
+    st.text(app_url)
 
     # Explicitly wait for an essential element to ensure content is loaded
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
