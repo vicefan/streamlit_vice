@@ -22,10 +22,9 @@ def get_driver():
 
     options.add_argument('--disable-gpu')
     options.add_argument('--headless')
-    options.add_argument(f"--window-size={width}x{height}")
+    options.add_argument(f"--window-size={1920}x{1080}")
 
     service = Service()
-    driver = webdriver.Chrome(service=service, options=options)
 
     return webdriver.Chrome(service=service, options=options)
 
@@ -44,9 +43,9 @@ def get_screenshot(app_url):
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 
     myid = driver.find_element(By.XPATH, '//*[@id="userId"]')
-    myid.send_keys(id)
+    myid.send_keys("dddooong2000")
     mypw = driver.find_element(By.XPATH, '//*[@id="pwd"]')
-    mypw.send_keys(pw)
+    mypw.send_keys("Chan0thug!")
     mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
     mybtn.click()
 
@@ -134,9 +133,6 @@ def generate_app_image():
     # with Image.open('final.png') as image:
     #    st.image(image)
 
-
-width = 1920
-height = 1080
 
 # Input URL
 with st.form("my_form"):
