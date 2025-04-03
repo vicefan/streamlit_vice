@@ -31,6 +31,7 @@ def get_driver():
 
 def get_screenshot(app_url):
     driver = get_driver()
+    start_time = time.time()
     driver.get(app_url)
 
     # Explicitly wait for an essential element to ensure content is loaded
@@ -45,7 +46,6 @@ def get_screenshot(app_url):
 
     time.sleep(1)
 
-    start_time = time.time()
     page_source = driver.page_source
     end_time = time.time()
     st.text(f"Page load time: {end_time - start_time:.2f} seconds")
