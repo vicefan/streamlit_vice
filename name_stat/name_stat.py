@@ -41,9 +41,9 @@ def get_screenshot(app_url):
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 
     myid = driver.find_element(By.XPATH, '//*[@id="userId"]')
-    myid.send_keys(id)
+    myid.send_keys("dddooong2000")
     mypw = driver.find_element(By.XPATH, '//*[@id="pwd"]')
-    mypw.send_keys(pw)
+    mypw.send_keys("Chan0thug!")
     mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
     mybtn.click()
 
@@ -61,10 +61,10 @@ with st.form("my_form"):
     encoded_str = base64.b64encode(raw_str.encode()).decode()
     app_url = f"https://www.credit.co.kr/ib20/mnu/BZWMNLGNM20?param={encoded_str}&uaCheck=Y"
     submitted = st.form_submit_button("Submit")
-    # if submitted:
-    #     if app_url:
-    #         count = get_screenshot(app_url)
-    #         st.subheader("Count:", count)
+    if submitted:
+        if app_url:
+            count = get_screenshot(app_url)
+            st.subheader("Count:", count)
 
 # Check ChromeDriver version
 try:
