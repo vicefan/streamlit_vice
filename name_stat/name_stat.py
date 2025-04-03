@@ -55,12 +55,11 @@ def get_screenshot(app_url):
     try:
         match = re.findall(pattern, page_source)
         test = match[0].split('<strong>')[1].split('</strong>')[0]
+        return test
     except:
         if "서비스가 처리되지 못했습니다." in page_source:
             st.error("서비스가 처리되지 못했습니다.")
             return None
-
-    return test
 
 
 with st.form("my_form"):
