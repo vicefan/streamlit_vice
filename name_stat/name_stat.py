@@ -41,8 +41,6 @@ def get_screenshot(app_url):
 
     # Explicitly wait for an essential element to ensure content is loaded
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
-    driver.save_screenshot('screenshot.png')
-    st.image('./screenshot.png')
 
     myid = driver.find_element(By.XPATH, '//*[@id="userId"]')
     myid.send_keys("dddooong2000")
@@ -50,20 +48,15 @@ def get_screenshot(app_url):
     mypw.send_keys("Chan0thug!")
     mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
     mybtn.click()
-    driver.save_screenshot('screenshot.png')
-    st.image('./screenshot.png')
-
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 
     time.sleep(5)
 
-
     # Get scroll height and width
-    # scroll_width = driver.execute_script('return document.body.parentNode.scrollWidth')
-    # scroll_height = driver.execute_script('return document.body.parentNode.scrollHeight')
+    scroll_width = driver.execute_script('return document.body.parentNode.scrollWidth')
+    scroll_height = driver.execute_script('return document.body.parentNode.scrollHeight')
 
     # Set window size
-    # driver.set_window_size(scroll_width, scroll_height)
+    driver.set_window_size(scroll_width, scroll_height)
 
     # Now, capture the screenshot
     driver.save_screenshot('screenshot.png')
