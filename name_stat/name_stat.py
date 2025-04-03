@@ -47,7 +47,7 @@ def get_screenshot(app_url):
 
     pattern = r'전국에<br><strong>[\d,]+</strong>명'
     match = re.findall(pattern, driver.page_source)
-    test = re.findall(r'[\d,]+', match[0])
+    test = match[0].split('<strong>')[1].split('</strong>')[0]
 
     return test[0]
 
