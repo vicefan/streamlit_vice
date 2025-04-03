@@ -1,12 +1,12 @@
 import base64
 import streamlit as st
 import time
-from PIL import Image, ImageDraw, ImageOps
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+import os
 
 
 st.set_page_config(page_title="viceversartist", page_icon="🫠",
@@ -14,11 +14,23 @@ st.set_page_config(page_title="viceversartist", page_icon="🫠",
 
 st.title('나이스지키미 로그인 시키지마라')
 
+a = "."
+
+for root, dirs, files in os.walk(a):
+    level = root.replace(a, '').count(os.sep)
+    indent = ' ' * 4 * (level)
+    st.text(f'{indent}{os.path.basename(root)}/')
+    subindent = ' ' * 4 * (level + 1)
+    for f in files:
+        st.text(f'{subindent}{f}')
+
 def get_driver():
     options = webdriver.ChromeOptions()
 
     options.add_argument('--disable-gpu')
     options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     options.add_extension("./sec_x.crx")
 
     service = Service()
@@ -36,9 +48,9 @@ def get_screenshot(app_url):
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 
     myid = driver.find_element(By.XPATH, '//*[@id="userId"]')
-    myid.send_keys("dddooong2000")
+    myid.send_keys(id)
     mypw = driver.find_element(By.XPATH, '//*[@id="pwd"]')
-    mypw.send_keys("Chan0thug!")
+    mypw.send_keys(pw)
     mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
     mybtn.click()
 
@@ -59,5 +71,4 @@ with st.form("my_form"):
     if submitted:
         if app_url:
             count = get_screenshot(app_url)
-
-st.subheader("Count:", count)
+            st.subheader("Count:", count)
