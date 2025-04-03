@@ -43,9 +43,13 @@ def get_screenshot(app_url):
     mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
     mybtn.click()
 
-    time.sleep(2)
+    time.sleep(1)
 
+    start_time = time.time()
     page_source = driver.page_source
+    end_time = time.time()
+    st.text(f"Page load time: {end_time - start_time:.2f} seconds")
+
     pattern = r'전국에<br><strong>[\d,]+</strong>명'
 
     try:
