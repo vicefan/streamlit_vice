@@ -63,4 +63,4 @@ with st.form("my_form"):
 if submitted:
     if app_url:
         count = get_screenshot(app_url)
-        st.subheader(count)
+        st.subheader(count+"명")
