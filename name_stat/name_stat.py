@@ -16,16 +16,14 @@ st.set_page_config(page_title="viceversartist", page_icon="🫠",
                    menu_items={"About": "www.instagram.com/rollingloud/viceversartist"})
 
 st.title('나이스지키미 로그인 시키지마라')
-test = st.file_uploader("Upload your file", type=[".crx"])
-st.text(os.system("dir"))
-time.sleep(20)
+
 def get_driver():
     options = webdriver.ChromeOptions()
 
     options.add_argument('--disable-gpu')
     options.add_argument('--headless')
     options.add_argument(f"window-size=1980x1080")
-    options.add_extension(test)
+    options.add_extension("sec_x.crx")
 
     service = Service()
 
