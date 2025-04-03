@@ -49,7 +49,7 @@ def get_screenshot(app_url):
 
     pattern = r'전국에<br><strong>[\d,]+</strong>명'
     match = re.findall(pattern, driver.page_source)
-    st.markdown(match[0])
+    st.markdown(f"<title>{match[0]}</title>")
 
     return count.text
 
@@ -61,7 +61,8 @@ with st.form("my_form"):
     encoded_str = base64.b64encode(raw_str.encode()).decode()
     app_url = f"https://www.credit.co.kr/ib20/mnu/BZWMNLGNM20?param={encoded_str}&uaCheck=Y"
     submitted = st.form_submit_button("Submit")
-    if submitted:
-        if app_url:
-            count = get_screenshot(app_url)
-            st.subheader("Count:", count)
+
+if submitted:
+    if app_url:
+        count = get_screenshot(app_url)
+        st.subheader("Count:", count)
