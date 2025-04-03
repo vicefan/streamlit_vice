@@ -9,8 +9,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 import time
 
 service = Service(excutable_path=ChromeDriverManager().install())
+Option=webdriver.ChromeOptions()
+Option.add_experimental_option("detach", True)
+Option.add_extension("sec_x.crx")
 
-driver = webdriver.Chrome(service=service)
+
+driver = webdriver.Chrome(service=service, options=Option)
+
 
 driver.get("https://www.credit.co.kr/ib20/mnu/BZWMNLGNM20?param=67CV67CV7J20LDEs67CV7J20LOuwlSxZ&uaCheck=Y")
 
@@ -20,5 +25,3 @@ mypw = driver.find_element(By.XPATH, '//*[@id="pwd"]')
 mypw.send_keys("Chan0thug!")
 mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
 mybtn.click()
-
-time.sleep(10)
