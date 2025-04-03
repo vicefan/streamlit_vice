@@ -14,16 +14,6 @@ st.set_page_config(page_title="viceversartist", page_icon="🫠",
 
 st.title('나이스지키미 로그인 시키지마라')
 
-a = "."
-
-for root, dirs, files in os.walk(a):
-    level = root.replace(a, '').count(os.sep)
-    indent = ' ' * 4 * (level)
-    st.text(f'{indent}{os.path.basename(root)}/')
-    subindent = ' ' * 4 * (level + 1)
-    for f in files:
-        st.text(f'{subindent}{f}')
-
 def get_driver():
     options = webdriver.ChromeOptions()
 
