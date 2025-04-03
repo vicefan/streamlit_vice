@@ -44,7 +44,7 @@ def get_screenshot(app_url):
     mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
     mybtn.click()
 
-    time.sleep(1)
+    time.sleep(2)
 
     page_source = driver.page_source
     end_time = time.time()
@@ -57,8 +57,7 @@ def get_screenshot(app_url):
         test = match[0].split('<strong>')[1].split('</strong>')[0]
         return test + "명"
     except:
-        if "서비스가 처리되지 못했습니다." in page_source:
-            st.error("서비스가 처리되지 못했습니다.")
+        st.error("서비스가 처리되지 못했습니다.")
 
 
 with st.form("my_form"):
