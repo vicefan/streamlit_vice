@@ -33,8 +33,6 @@ def get_screenshot(app_url):
     driver = get_driver()
     driver.get(app_url)
 
-    time.sleep(3)
-
     # Explicitly wait for an essential element to ensure content is loaded
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 
@@ -45,7 +43,7 @@ def get_screenshot(app_url):
     mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
     mybtn.click()
 
-    time.sleep(5)
+    time.sleep(2)
 
     count = driver.find_element(By.XPATH, '//*[@id="capture"]/div[2]/a[1]/strong')
 
