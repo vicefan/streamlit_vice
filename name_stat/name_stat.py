@@ -58,7 +58,7 @@ def get_screenshot(app_url):
             st.error("서비스가 처리되지 못했습니다.")
             return None
 
-    return test[0]
+    return test
 
 
 with st.form("my_form"):
