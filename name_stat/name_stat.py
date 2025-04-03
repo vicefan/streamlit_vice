@@ -72,3 +72,14 @@ with st.form("my_form"):
     #     if app_url:
     #         count = get_screenshot(app_url)
     #         st.subheader("Count:", count)
+
+# Check ChromeDriver version
+try:
+    driver = get_driver()
+    st.text(f"ChromeDriver version: {driver.capabilities['chrome']['chromedriverVersion']}")
+    driver.quit()
+except Exception as e:
+    st.error(f"Error checking ChromeDriver version: {e}")
+
+# Check environment variables
+st.text(f"PATH: {os.environ.get('PATH')}")
