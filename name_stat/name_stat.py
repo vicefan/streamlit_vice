@@ -104,7 +104,7 @@ def generate_app_image():
     img.save('rect.png')
     ###
     # Resize app image
-    image_resize = 1.1  # Increase this value to make the image larger
+    image_resize = 0.5  # Increase this value to make the image larger
     new_width = int(img.width * image_resize)
     new_height = int(img.height * image_resize)
     resized_app_img = app_img.resize((new_width, new_height))
@@ -122,7 +122,7 @@ def generate_app_image():
 
     ###
     # Resize app image
-    image_resize_2 = 1.0  # Increase this value to make the image larger
+    image_resize_2 = 0.5  # Increase this value to make the image larger
     new_width_2 = int(bg_img.width * image_resize_2)
     new_height_2 = int(bg_img.height * image_resize_2)
     resized_img = img.resize((new_width_2, new_height_2))
