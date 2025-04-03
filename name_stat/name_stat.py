@@ -22,7 +22,7 @@ def get_driver():
 
     options.add_argument('--disable-gpu')
     options.add_argument('--headless')
-    options.add_argument(f"--window-size={1980}x{1080}")
+    options.add_argument(f"--window-size=1980x1080")
 
     service = Service()
 
