@@ -45,8 +45,6 @@ def get_screenshot(app_url):
 
     time.sleep(2)
 
-    count = driver.find_element(By.XPATH, '//*[@id="capture"]/div[2]/a[1]/strong')
-
     pattern = r'전국에<br><strong>[\d,]+</strong>명'
     match = re.findall(pattern, driver.page_source)
     test = re.findall(r'[\d,]+', match[0])
@@ -65,4 +63,4 @@ with st.form("my_form"):
 if submitted:
     if app_url:
         count = get_screenshot(app_url)
-        st.markdown(f"<title>{count}</title>", unsafe_allow_html=True)
+        st.subheader(count)
