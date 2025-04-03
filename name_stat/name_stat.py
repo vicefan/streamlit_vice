@@ -43,6 +43,16 @@ def get_screenshot(app_url):
     # Explicitly wait for an essential element to ensure content is loaded
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 
+    myid = driver.find_element(By.XPATH, '//*[@id="userId"]')
+    myid.send_keys(id)
+    mypw = driver.find_element(By.XPATH, '//*[@id="pwd"]')
+    mypw.send_keys(pw)
+    mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
+    mybtn.click()
+
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
+
+
     # Get scroll height and width
     # scroll_width = driver.execute_script('return document.body.parentNode.scrollWidth')
     # scroll_height = driver.execute_script('return document.body.parentNode.scrollHeight')
