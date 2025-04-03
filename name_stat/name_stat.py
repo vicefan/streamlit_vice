@@ -145,14 +145,3 @@ with st.form("my_form"):
 file_exists = exists('screenshot.png')
 if file_exists:
     generate_app_image()
-
-    with open("final.png", "rb") as file:
-        btn = st.download_button(
-            label="Download image",
-            data=file,
-            file_name=f"{app_name}.png",
-            mime="image/png"
-        )
-        if btn:
-            os.remove('screenshot.png')
-            os.remove('final.png')
