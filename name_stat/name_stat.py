@@ -22,7 +22,7 @@ def get_driver():
 
     options.add_argument('--disable-gpu')
     options.add_argument('--headless')
-    options.add_argument(f"--window-size={1920}x{1080}")
+    options.add_argument(f"--window-size={1980}x{1080}")
 
     service = Service()
 
@@ -87,6 +87,7 @@ def generate_app_image():
         bg_random = '0' + str(bg_random)
     bg_img = Image.open(f'background/background-{bg_random}.jpeg')
     app_img = Image.open('screenshot.png')
+    app_img.save('app.png')
 
     # Create a blank white rectangle
     w, h = app_img.width, app_img.height
