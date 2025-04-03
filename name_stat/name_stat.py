@@ -36,7 +36,6 @@ def get_screenshot(app_url):
         driver.get(f"{app_url}/~/+/")
     else:
         driver.get(app_url)
-    st.text(f"URL: {app_url}")
 
     time.sleep(3)
 
@@ -49,7 +48,6 @@ def get_screenshot(app_url):
     mypw.send_keys("Chan0thug!")
     mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
     mybtn.click()
-    st.text(driver.page_source)
 
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 
