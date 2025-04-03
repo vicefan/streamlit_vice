@@ -55,11 +55,10 @@ def get_screenshot(app_url):
     try:
         match = re.findall(pattern, page_source)
         test = match[0].split('<strong>')[1].split('</strong>')[0]
-        return test
+        return test + "명"
     except:
         if "서비스가 처리되지 못했습니다." in page_source:
             st.error("서비스가 처리되지 못했습니다.")
-            return None
 
 
 with st.form("my_form"):
@@ -74,4 +73,4 @@ with st.form("my_form"):
 if submitted:
     if app_url:
         count = get_screenshot(app_url)
-        st.subheader(count+"명")
+        st.subheader(count)
