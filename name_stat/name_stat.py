@@ -1,14 +1,10 @@
 import base64
 import streamlit as st
 import time
-import psutil
 import random
 import os
-import sys
 from PIL import Image, ImageDraw, ImageOps
-from PIL.Image import Resampling
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -122,35 +118,14 @@ def generate_app_image():
     bg_img.paste(resized_img, (int(bg_img.width * 0.05), int(bg_img.width * 0.06)), resized_img)
     # bg_img.save('final.png')
 
-    if streamlit_logo:
-        logo_img = Image.open('streamlit-logo.png').convert('RGBA')
-        logo_img.thumbnail([sys.maxsize, logo_width], Resampling.LANCZOS)
-        bg_img.paste(logo_img, (logo_horizontal_placement, logo_vertical_placement), logo_img)
-        bg_img.save('final.png')
-
     st.image(bg_img)
 
     # with Image.open('final.png') as image:
     #    st.image(image)
 
 
-# Settings
-with st.sidebar:
-    st.header('⚙️ Settings')
-
-    st.subheader('Image Resolution')
-    width = st.slider('Width', 426, 1920, 1000)
-    height = st.slider('Height', 240, 1080, 540)
-
-    with st.expander('Streamlit logo'):
-        streamlit_logo = st.checkbox('Add Streamlit logo', value=True, key='streamlit_logo')
-        logo_width = st.slider('Image width', 0, 500, 100, step=10)
-        logo_vertical_placement = st.slider('Vertical placement', 0, 1000, 670, step=10)
-        logo_horizontal_placement = st.slider('Horizontal placement', 0, 1800, 80, step=10)
-
-    # Getting % usage of virtual_memory ( 3rd field)
-    ram_usage = psutil.virtual_memory()[2]
-    st.caption(f'RAM used (%): {ram_usage}')
+width = 1920
+height = 1080
 
 # Input URL
 with st.form("my_form"):
