@@ -1,9 +1,10 @@
 import base64
 import streamlit as st
 
-st.set_page_config(layout="wide")
 
-# Streamlit 애플리케이션
+st.set_page_config(page_title="viceversartist", page_icon="🫠",
+                   menu_items={"About": "www.instagram.com/rollingloud/viceversartist"})
+
 st.title("나이스지키미 로그인 시키지마라")
 cols = st.columns(2)
 with cols[0]:
