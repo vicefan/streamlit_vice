@@ -36,7 +36,7 @@ def get_screenshot(app_url):
         driver.get(f"{app_url}/~/+/")
     else:
         driver.get(app_url)
-    print(f"URL: {app_url}")
+    st.text(f"URL: {app_url}")
 
     time.sleep(3)
 
