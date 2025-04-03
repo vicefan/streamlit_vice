@@ -46,10 +46,17 @@ def get_screenshot(app_url):
 
     time.sleep(2)
 
+    page_source = driver.page_source
+
     pattern = r'전국에<br><strong>[\d,]+</strong>명'
-    st.text(driver.page_source)
-    match = re.findall(pattern, driver.page_source)
-    test = match[0].split('<strong>')[1].split('</strong>')[0]
+    st.text(page_source)
+    try:
+        match = re.findall(pattern, page_source)
+        test = match[0].split('<strong>')[1].split('</strong>')[0]
+    except:
+        if "서비스가 처리되지 못했습니다." in page_source:
+            st.error("서비스가 처리되지 못했습니다.")
+            return None
 
     return test[0]
 
