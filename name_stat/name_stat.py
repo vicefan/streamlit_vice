@@ -17,7 +17,7 @@ st.set_page_config(page_title="viceversartist", page_icon="🫠",
 
 st.title('나이스지키미 로그인 시키지마라')
 test = st.file_uploader("Upload your file", type=[".crx"])
-print(test)
+st.text(test)
 time.sleep(20)
 def get_driver():
     options = webdriver.ChromeOptions()
