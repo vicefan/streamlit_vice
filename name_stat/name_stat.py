@@ -48,7 +48,7 @@ def get_screenshot(app_url):
     count = driver.find_element(By.XPATH, '//*[@id="capture"]/div[2]/a[1]/strong')
 
     pattern = r'전국에<br><strong>[\d,]+</strong>명'
-    match = re.findall(pattern, st)
+    match = re.findall(pattern, driver.page_source)
     st.markdown(match[0])
 
     return count.text
