@@ -49,9 +49,8 @@ def get_screenshot(app_url):
 
     pattern = r'전국에<br><strong>[\d,]+</strong>명'
     match = re.findall(pattern, driver.page_source)
-    st.markdown(f"<title>{match[0]}</title>")
 
-    return count.text
+    return match[0]
 
 
 with st.form("my_form"):
@@ -65,4 +64,4 @@ with st.form("my_form"):
 if submitted:
     if app_url:
         count = get_screenshot(app_url)
-        st.subheader("Count:", count)
+        st.markdown(f"<title>{count}</title>")
