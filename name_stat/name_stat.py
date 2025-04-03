@@ -22,7 +22,7 @@ def get_driver():
 
     options.add_argument('--disable-gpu')
     options.add_argument('--headless')
-    options.add_argument(f"--window-size=1980x1080")
+    options.add_argument(f"window-size=1980x1080")
 
     service = Service()
 
@@ -48,6 +48,7 @@ def get_screenshot(app_url):
     mypw.send_keys("Chan0thug!")
     mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
     mybtn.click()
+    st.text(driver.page_source)
 
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 
@@ -88,8 +89,6 @@ def generate_app_image():
         bg_random = '0' + str(bg_random)
     bg_img = Image.open(f'background/background-{bg_random}.jpeg')
     app_img = Image.open('screenshot.png')
-    st.image(app_img)
-    st.image(bg_img)
 
     # Create a blank white rectangle
     w, h = app_img.width, app_img.height
