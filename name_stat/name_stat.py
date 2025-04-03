@@ -7,15 +7,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 import os
-
+import re
 
 st.set_page_config(page_title="viceversartist", page_icon="🫠",
                    menu_items={"About": "www.instagram.com/rollingloud/viceversartist"})
 
 st.title('나이스지키미 로그인 시키지마라')
 os.system("chmod +r ./sec_x.crx")
-
-st.text(st.secrets['pw'])
 
 def get_driver():
     options = webdriver.ChromeOptions()
@@ -51,6 +49,11 @@ def get_screenshot(app_url):
 
     count = driver.find_element(By.XPATH, '//*[@id="capture"]/div[2]/a[1]/strong')
     st.code(driver.page_source)
+
+    pattern = r'전국에<br><strong>[\d,]+</strong>명'
+    match = re.search(pattern, driver.page_source)
+    st.markdown(match)
+
     return count.text
 
 
