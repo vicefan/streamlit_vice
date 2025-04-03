@@ -19,8 +19,7 @@ def get_driver():
 
     options.add_argument('--disable-gpu')
     options.add_argument('--headless')
-    options.add_argument(f"window-size=1980x1080")
-    options.add_extension("sec_x.crx")
+    options.add_extension("./sec_x.crx")
 
     service = Service()
 
@@ -29,10 +28,7 @@ def get_driver():
 
 def get_screenshot(app_url):
     driver = get_driver()
-    if app_url.endswith('streamlit.app'):
-        driver.get(f"{app_url}/~/+/")
-    else:
-        driver.get(app_url)
+    driver.get(app_url)
 
     time.sleep(3)
 
@@ -50,9 +46,9 @@ def get_screenshot(app_url):
 
     count = driver.find_element(By.XPATH, '//*[@id="capture"]/div[2]/a[1]/strong')
 
-    st.write(f"{count.text}명")
+    return count.text
 
-# Input URL
+
 with st.form("my_form"):
     fam_name = st.text_input("성")
     given_name = st.text_input("이름")
@@ -62,4 +58,6 @@ with st.form("my_form"):
     submitted = st.form_submit_button("Submit")
     if submitted:
         if app_url:
-            get_screenshot(app_url)
+            count = get_screenshot(app_url)
+
+st.subheader("Count:", count)
