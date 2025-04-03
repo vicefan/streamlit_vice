@@ -63,6 +63,7 @@ def get_screenshot(app_url):
 
     # Now, capture the screenshot
     driver.save_screenshot('screenshot.png')
+    st.image('./screenshot.png')
 
 
 def add_corners(im, rad):
