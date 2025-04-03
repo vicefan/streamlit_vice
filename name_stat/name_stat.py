@@ -14,6 +14,9 @@ st.set_page_config(page_title="viceversartist", page_icon="🫠",
 
 st.title('나이스지키미 로그인 시키지마라')
 
+os.system("ls -l ./sec_x.crx")
+os.system("chmod +r ./sec_x.crx")
+
 def get_driver():
     options = webdriver.ChromeOptions()
 
