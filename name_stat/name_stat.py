@@ -69,6 +69,8 @@ with st.form("my_form"):
     app_url = f"https://www.credit.co.kr/ib20/mnu/BZWMNLGNM20?param={encoded_str}&uaCheck=Y"
     os.system(f"echo {app_url} // {raw_str}")
     submitted = st.form_submit_button("Submit")
+    st.text(app_url)
+    st.text(raw_str)
 
 if submitted:
     if app_url:
