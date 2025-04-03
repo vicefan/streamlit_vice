@@ -87,7 +87,8 @@ def generate_app_image():
         bg_random = '0' + str(bg_random)
     bg_img = Image.open(f'background/background-{bg_random}.jpeg')
     app_img = Image.open('screenshot.png')
-    app_img.save('app.png')
+    st.image(app_img)
+    st.image(bg_img)
 
     # Create a blank white rectangle
     w, h = app_img.width, app_img.height
