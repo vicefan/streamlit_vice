@@ -51,7 +51,7 @@ def get_screenshot(app_url):
 
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 
-    time.sleep(10)
+    time.sleep(5)
 
 
     # Get scroll height and width
