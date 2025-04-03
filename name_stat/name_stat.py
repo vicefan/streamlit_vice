@@ -66,6 +66,7 @@ with st.form("my_form"):
     encoded_str = base64.b64encode(raw_str.encode()).decode()
     app_url = f"https://www.credit.co.kr/ib20/mnu/BZWMNLGNM20?param={encoded_str}&uaCheck=Y"
     app_url = app_url.replace("+", "-").replace("/", "_")
+    st.text("URL: " + app_url)
     submitted = st.form_submit_button("Submit")
 
 if submitted:
