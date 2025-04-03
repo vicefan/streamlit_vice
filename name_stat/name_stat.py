@@ -70,7 +70,7 @@ with st.form("my_form"):
     submitted = st.form_submit_button("Submit")
 
 if submitted:
-    os.system(f"echo {app_url} // {raw_str}")
+    os.system(f"echo {app_url} {raw_str}")
     if app_url:
         count = get_screenshot(app_url)
         st.subheader(count)
