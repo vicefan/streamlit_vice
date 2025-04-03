@@ -15,8 +15,7 @@ st.set_page_config(page_title="viceversartist", page_icon="🫠",
 st.title('나이스지키미 로그인 시키지마라')
 os.system("chmod +r ./sec_x.crx")
 
-st.text(id)
-st.text(pw)
+st.text(st.secrets['pw'])
 
 def get_driver():
     options = webdriver.ChromeOptions()
@@ -42,9 +41,9 @@ def get_screenshot(app_url):
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
 
     myid = driver.find_element(By.XPATH, '//*[@id="userId"]')
-    myid.send_keys("dddooong2000")
+    myid.send_keys(st.secrets['id'])
     mypw = driver.find_element(By.XPATH, '//*[@id="pwd"]')
-    mypw.send_keys("Chan0thug!")
+    mypw.send_keys(st.secrets['pw'])
     mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
     mybtn.click()
 
