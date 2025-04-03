@@ -119,4 +119,4 @@ function openExtUrl(url) {
 
 pattern = r'전국에<br><strong>[\d,]+</strong>명'
 match = re.findall(pattern, st)
-print(match)
+test = re.findall(r'[\d,]+', match[0])
