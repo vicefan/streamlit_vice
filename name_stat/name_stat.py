@@ -75,4 +75,4 @@ if submitted:
     if app_url:
         with st.spinner("불러오는 중 ...", show_time=True):
             count = get_screenshot(app_url)
-            st.subheader(count)
+            st.success(count)
