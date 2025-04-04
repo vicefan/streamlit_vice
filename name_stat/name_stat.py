@@ -76,4 +76,3 @@ if submitted:
         with st.spinner("불러오는 중 ...", show_time=True):
             count = get_screenshot(app_url)
             st.subheader(count)
-            time.sleep(16)
