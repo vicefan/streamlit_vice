@@ -44,7 +44,7 @@ def get_screenshot(app_url):
     mybtn = driver.find_element(By.XPATH, '//*[@id="idLoginBtn"]')
     mybtn.click()
 
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
+    time.sleep(1.5)
 
     page_source = driver.page_source
     end_time = time.time()
