@@ -56,6 +56,7 @@ def get_screenshot(app_url):
         match = re.findall(pattern, page_source)
         test = match[0].split('<strong>')[1].split('</strong>')[0]
         return test + "명"
+
     except:
         st.error("서비스가 처리되지 못했습니다.")
 
