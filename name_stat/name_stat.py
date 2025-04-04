@@ -47,6 +47,7 @@ def get_screenshot(app_url):
     time.sleep(1.5)
 
     page_source = driver.page_source
+
     end_time = time.time()
     st.text(f"Page load time: {end_time - start_time:.2f} seconds")
 
@@ -72,5 +73,7 @@ with st.form("my_form"):
 
 if submitted:
     if app_url:
-        count = get_screenshot(app_url)
-        st.subheader(count)
+        with st.spinner("불러오는 중 ...", show_time=True):
+            count = get_screenshot(app_url)
+            st.subheader(count)
+            time.sleep(16)
