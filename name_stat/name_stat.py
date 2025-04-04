@@ -59,6 +59,7 @@ def get_screenshot(app_url):
 
     except:
         st.error("서비스가 처리되지 못했습니다.")
+        exit()
 
 
 with st.form("my_form"):
