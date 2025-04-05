@@ -22,9 +22,13 @@ def is_subsequence(query, name):
             i += 1
     return i == len(query)
 
+def on_change():
+    st.session_state.query = user_input
+
 # UI
 st.title("유저 이름 이니셜 검색기")
-user_input = st.text_input("검색어를 입력하세요 (예: t, td, dc 등):")
+user_input = st.text_input('Enter your query:', placeholder = 'Enter query here ...', on_change=on_change)
+st.subheader("검색 결과:")
 
 # 매칭 이름 필터링
 if user_input:
@@ -32,8 +36,6 @@ if user_input:
 else:
     matches = people  # 아무것도 입력 안 하면 전체 보여주기
 
-# 결과 표시
-st.subheader("검색 결과:")
 if matches:
     for name in matches:
         st.write(f"• {name}")
