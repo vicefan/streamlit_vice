@@ -28,7 +28,7 @@ user_input = st.text_input("검색어를 입력하세요 (예: t, td, dc 등):")
 
 # 매칭 이름 필터링
 if user_input:
-    matches = [name for name in people if is_subsequence(user_input, name)]
+    matches = [name for name in people if is_subsequence(user_input, name)].sort()
 else:
     matches = people  # 아무것도 입력 안 하면 전체 보여주기
 
