@@ -29,8 +29,4 @@ query = st.text_input("이니셜이나 일부 글자를 입력하세요 (예: 't
 if query:
     matches = [person for person in people if is_subsequence(query, person)]
     if matches:
-        st.subheader("검색 결과:")
-        for match in matches:
-            st.write(match)
-    else:
-        st.write("일치하는 인물이 없습니다.")
+        st.selectbox(matches)
