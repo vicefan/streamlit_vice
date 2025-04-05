@@ -36,7 +36,7 @@ else:
     matches = people  # 아무것도 입력 안 하면 전체 보여주기
 
 if matches:
-    for name in matches:
+    for name in matches[:3]:
         st.write(f"• {name}")
 else:
     st.write("🔍 일치하는 이름이 없습니다.")
