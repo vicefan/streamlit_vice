@@ -1,19 +1,36 @@
-import streamlit as st
-from st_keyup import st_keyup
+import json
+import tkinter as tk
+from tkinter import messagebox
 
-# 이름 리스트 (예시)
-people = [
-    "T.J. Dillashaw",
-    "Tyler Durden",
-    "Daniel Cormier",
-    "Tony Ferguson",
-    "Dustin Poirier",
-    "Dominick Cruz",
-    "Tommy Dreamer",
-    "Max Holloway",
-]
+with open("./match_results.json", "r", encoding="utf-8") as f:
+    match_dict = json.load(f)
 
-# 서브시퀀스 매칭 함수 (문자 순서만 중요)
+def build_win_graph(win_data):
+    graph = {}
+    for winner, losers in win_data.items():
+        if winner not in graph:
+            graph[winner] = set()
+        for loser in losers:
+            graph[winner].add(loser)
+    return graph
+
+def find_win_path(graph, a, b, visited=None, path=None):
+    if visited is None:
+        visited = set()
+    if path is None:
+        path = [a]
+    if a not in graph:
+        return None
+    if b in graph[a]:
+        return path + [b]
+    visited.add(a)
+    for opponent in graph[a]:
+        if opponent not in visited:
+            result = find_win_path(graph, opponent, b, visited, path + [opponent])
+            if result:
+                return result
+    return None
+
 def is_subsequence(query, name):
     query = query.lower()
     name = name.lower()
@@ -24,19 +41,115 @@ def is_subsequence(query, name):
     return i == len(query)
 
 
-# UI
-st.title("유저 이름 이니셜 검색기")
-user_input = st_keyup("Enter a value", key="0")
-st.subheader("검색 결과:")
+# ========================= GUI ============================
+class UFCApp:
+    def __init__(self, root, win_data):
+        self.root = root
+        self.root.title("UFC 경로 탐색기")
+        self.win_data = win_data
+        self.graph = build_win_graph(win_data)
+        self.fighters = sorted(win_data.keys())
 
-# 매칭 이름 필터링
-if user_input:
-    matches = sorted([name for name in people if is_subsequence(user_input, name)])
-else:
-    matches = people  # 아무것도 입력 안 하면 전체 보여주기
+        self.tmp_left = ""
+        self.tmp_right = ""
 
-if matches:
-    for name in matches[:3]:
-        st.write(f"• {name}")
-else:
-    st.write("🔍 일치하는 이름이 없습니다.")
+        self.search_var1 = tk.StringVar()
+        self.search_var1.trace("w", self.update_listbox1)
+        self.search_var2 = tk.StringVar()
+        self.search_var2.trace("w", self.update_listbox2)
+
+        self.setup_widgets()
+        self.update_listbox1()
+        self.update_listbox2()
+        self.center_window()
+
+    def center_window(self):
+        self.root.update_idletasks()
+        width = self.root.winfo_width()
+        height = self.root.winfo_height()
+        x = (self.root.winfo_screenwidth() // 2) - (width // 2)
+        y = (self.root.winfo_screenheight() // 2) - (height // 2)
+        self.root.geometry(f'{width}x{height}+{x}+{y}')
+
+    def setup_widgets(self):
+        tk.Label(self.root, text="시작 선수 검색용", font=("Georgia", 12)).grid(row=0, column=0, padx=5, pady=5)
+        entry1 = tk.Entry(self.root, textvariable=self.search_var1, width=25, font=("Georgia", 14))
+        entry1.grid(row=1, column=0, padx=5, pady=5, sticky="w")
+
+        tk.Label(self.root, text="도착 선수 검색용", font=("Georgia", 12)).grid(row=0, column=1, padx=5, pady=5)
+        entry2 = tk.Entry(self.root, textvariable=self.search_var2, width=25, font=("Georgia", 14))
+        entry2.grid(row=1, column=1, padx=5, pady=5, sticky="w")
+
+        list_frame = tk.Frame(self.root)
+        list_frame.grid(row=2, column=0, columnspan=2, pady=10)
+
+        self.listbox1 = tk.Listbox(list_frame, selectmode=tk.SINGLE, height=8, width=30, font=("Georgia", 12))
+        self.listbox2 = tk.Listbox(list_frame, selectmode=tk.SINGLE, height=8, width=30, font=("Georgia", 12))
+        self.listbox1.grid(row=0, column=0, padx=10)
+        self.listbox2.grid(row=0, column=1, padx=10)
+
+        self.listbox1.bind("<<ListboxSelect>>", self.on_left_select)
+        self.listbox2.bind("<<ListboxSelect>>", self.on_right_select)
+
+        self.selection_label = tk.Label(self.root, text="시작: -     도착: -", font=("Georgia", 12), fg="gray")
+        self.selection_label.grid(row=3, column=0, columnspan=2, pady=5)
+
+        self.check_button = tk.Button(self.root, text="경로 확인", font=("Georgia", 12), command=self.check_win_path)
+        self.check_button.grid(row=4, column=0, columnspan=2, pady=10)
+
+        self.result_label = tk.Label(self.root, text="", font=("Georgia", 14), fg="blue")
+        self.result_label.grid(row=5, column=0, columnspan=2)
+
+    def update_listbox1(self, *args):
+        query = self.search_var1.get()
+        self.listbox1.delete(0, tk.END)
+        for name in self.fighters:
+            if is_subsequence(query, name):
+                self.listbox1.insert(tk.END, name)
+
+    def update_listbox2(self, *args):
+        query = self.search_var2.get()
+        self.listbox2.delete(0, tk.END)
+        for name in self.fighters:
+            if is_subsequence(query, name):
+                self.listbox2.insert(tk.END, name)
+
+    def on_left_select(self, event):
+        try:
+            self.tmp_left = self.listbox1.get(self.listbox1.curselection())
+            self.update_selection_label()
+        except tk.TclError:
+            pass
+
+    def on_right_select(self, event):
+        try:
+            self.tmp_right = self.listbox2.get(self.listbox2.curselection())
+            self.update_selection_label()
+        except tk.TclError:
+            pass
+
+    def update_selection_label(self):
+        left = self.tmp_left if self.tmp_left else "없음"
+        right = self.tmp_right if self.tmp_right else "없음"
+        self.selection_label.config(text=f"왼쪽: {left}     오른쪽: {right}")
+
+    def check_win_path(self):
+        if not self.tmp_left or not self.tmp_right:
+            messagebox.showerror("선택 오류", "양쪽에서 선수를 선택해주세요.")
+            return
+        if self.tmp_left == self.tmp_right:
+            self.result_label.config(text="같은 선수를 선택했습니다.")
+            return
+
+        path = find_win_path(self.graph, self.tmp_left, self.tmp_right)
+        if path:
+            print(" > ".join(path))
+        else:
+            self.result_label.config(text=f"{self.tmp_left}는 {self.tmp_right}를 이긴 적이 없습니다.")
+
+
+# =================== 실행 ====================
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = UFCApp(root, match_dict)
+    root.mainloop()
