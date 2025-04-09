@@ -20,7 +20,7 @@ for i in range(8, 0, -1):
     events = [a['href'] for a in a_tags]
 
     for event in events:
-        print(f"Processing event: {event.split("/")[-1]}")
+        print(f"Processing event: {event.split('/')[-1]}")
         event_url = sdog + event
         response = requests.get(event_url, headers=headers)
         soup = BeautifulSoup(response.content, 'html.parser')

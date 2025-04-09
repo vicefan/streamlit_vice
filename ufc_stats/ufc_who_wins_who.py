@@ -1,6 +1,8 @@
 import json
 import tkinter as tk
 from tkinter import messagebox
+import heapq
+import clipboard
 
 with open("./match_results.json", "r", encoding="utf-8") as f:
     match_dict = json.load(f)
@@ -11,24 +13,35 @@ def build_win_graph(win_data):
         if winner not in graph:
             graph[winner] = set()
         for loser in losers:
+            if loser not in graph:
+                graph[loser] = set()  # 패배한 선수도 그래프에 추가
             graph[winner].add(loser)
     return graph
 
-def find_win_path(graph, a, b, visited=None, path=None):
-    if visited is None:
-        visited = set()
-    if path is None:
-        path = [a]
-    if a not in graph:
+def find_win_path(graph, start, end):
+    if start not in graph or end not in graph:
         return None
-    if b in graph[a]:
-        return path + [b]
-    visited.add(a)
-    for opponent in graph[a]:
-        if opponent not in visited:
-            result = find_win_path(graph, opponent, b, visited, path + [opponent])
-            if result:
-                return result
+
+    # 우선순위 큐와 거리 초기화
+    priority_queue = [(0, start, [start])]  # (거리, 현재 노드, 경로)
+    visited = set()
+
+    while priority_queue:
+        current_distance, current_node, path = heapq.heappop(priority_queue)
+
+        if current_node in visited:
+            continue
+        visited.add(current_node)
+
+        # 도착 노드에 도달하면 경로 반환
+        if current_node == end:
+            return path
+
+        # 인접 노드 탐색
+        for neighbor in graph[current_node]:
+            if neighbor not in visited:
+                heapq.heappush(priority_queue, (current_distance + 1, neighbor, path + [neighbor]))
+
     return None
 
 def is_subsequence(query, name):
@@ -95,7 +108,10 @@ class UFCApp:
         self.selection_label.grid(row=3, column=0, columnspan=2, pady=5)
 
         self.check_button = tk.Button(self.root, text="경로 확인", font=("Georgia", 12), command=self.check_win_path)
-        self.check_button.grid(row=4, column=0, columnspan=2, pady=10)
+        self.check_button.grid(row=4, column=0, columnspan=1, pady=10)
+
+        self.copy_button = tk.Button(self.root, text="결과 복사", font=("Georgia", 12), command=self.paste_result)
+        self.copy_button.grid(row=4, column=1, columnspan=1, pady=10)
 
         self.result_label = tk.Label(self.root, text="", font=("Georgia", 14), fg="blue")
         self.result_label.grid(row=5, column=0, columnspan=2)
@@ -146,6 +162,18 @@ class UFCApp:
             print(" > ".join(path))
         else:
             self.result_label.config(text=f"{self.tmp_left}는 {self.tmp_right}를 이긴 적이 없습니다.")
+
+    def paste_result(self):
+        if self.tmp_left and self.tmp_right:
+            path = find_win_path(self.graph, self.tmp_left, self.tmp_right)
+            if path:
+                result = " > ".join(path)
+                clipboard.copy(result)
+                messagebox.showinfo("결과 복사", f"결과가 클립보드에 복사되었습니다:\n{result}")
+            else:
+                messagebox.showinfo("결과 없음", f"{self.tmp_left}는 {self.tmp_right}를 이긴 적이 없습니다.")
+        else:
+            messagebox.showerror("선택 오류", "양쪽에서 선수를 선택해주세요.")
 
 
 # =================== 실행 ====================
