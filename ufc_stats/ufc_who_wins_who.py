@@ -104,7 +104,7 @@ class UFCApp:
         self.listbox1.bind("<<ListboxSelect>>", self.on_left_select)
         self.listbox2.bind("<<ListboxSelect>>", self.on_right_select)
 
-        self.selection_label = tk.Label(self.root, text="시작: -     도착: -", font=("Georgia", 12), fg="gray")
+        self.selection_label = tk.Label(self.root, text="시작: -\t\t\t도착: -", font=("Georgia", 12), fg="gray")
         self.selection_label.grid(row=3, column=0, columnspan=2, pady=5)
 
         self.check_button = tk.Button(self.root, text="경로 확인", font=("Georgia", 12), command=self.check_win_path)

@@ -26,7 +26,7 @@ else:
 
 def get_chat_response(message, text):
     chat_completion = client.chat.completions.create(
-        model="chatgpt-4o-latest",
+        model="gpt-4.1",
         messages=[
             {"role": "system", "content": f"""사용자의 PDF (PDF가 없으면 'PDF가 입력되지 않았습니다.') : {text}\n
             사용자의 질문(답변도 한국어로 작성) : {message}"""},
