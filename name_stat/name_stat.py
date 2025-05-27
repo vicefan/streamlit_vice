@@ -73,6 +73,6 @@ with st.form("my_form"):
 
 if submitted:
     if app_url:
-        with st.spinner("불러오는 중 ...", show_time=True):
+        with st.spinner("불러오는 중 ..."):
             count = get_screenshot(app_url)
             st.success(count)
